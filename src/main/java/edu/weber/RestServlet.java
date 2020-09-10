@@ -24,8 +24,10 @@ public class RestServlet extends HttpServlet {
 		Contact contact = new Contact(
 				"Jordan", 
 				"Stong", 
-				new Address("1000", "Main St.", "Town", "State", "5555", "USA"), 
-				"555-123-4567");
+				"555-123-4567",
+				new Address("1000", "Main St.", "Town", "State", "5555", "USA"),
+				new Address()
+				);
 		
 		
 		

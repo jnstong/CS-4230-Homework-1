@@ -12,18 +12,20 @@ public class Contact implements Serializable{
 	//@JsonProperty("fn") //changes what the variable is called 
 	private String firstName;
 	private String lastName;
-	private Address address;
+	private Address homeAddress;
+	private Address businessAddress;
 	private String phoneNumber;
 	
 	public Contact() {
-		this(null, null, null, null);
+		this(null, null, null, null, null);
 	}
 	
-	public Contact(String firstName, String lastName, Address address, String phoneNumber) {
+	public Contact(String firstName, String lastName, String phoneNumber, Address homeAddress, Address businessAddress) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.address = address;
+		this.homeAddress = homeAddress;
+		this.businessAddress = businessAddress;
 		this.phoneNumber = phoneNumber;
 	}
 
@@ -43,12 +45,12 @@ public class Contact implements Serializable{
 		this.lastName = lastName;
 	}
 
-	public Address getAddress() {
-		return address;
+	public Address getHomeAddress() {
+		return homeAddress;
 	}
 
-	public void setAddress(Address address) {
-		this.address = address;
+	public void setHomeAddress(Address homeAddress) {
+		this.homeAddress = homeAddress;
 	}
 
 	public String getPhoneNumber() {
@@ -57,6 +59,14 @@ public class Contact implements Serializable{
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	
+	public Address getBusinessAddress() {
+		return businessAddress;
+	}
+
+	public void setBusinessAddress(Address businessAddress) {
+		this.businessAddress = businessAddress;
 	}
 
 	

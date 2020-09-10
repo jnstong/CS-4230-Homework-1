@@ -18,25 +18,44 @@ import edu.weber.model.Contact;
 public class MyFirstServlet extends HttpServlet
 {
 
+	private List<Contact> contacts = new ArrayList<Contact>();
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Contact contact = new Contact(
+				req.getParameter("firstName"),
+				req.getParameter("lastName"),
+				req.getParameter("phoneNumber"),
+				new Address(
+						req.getParameter("addressLine1"),
+						req.getParameter("addressLine2"),
+						req.getParameter("city"),
+						req.getParameter("state"),
+						req.getParameter("zipCode"),
+						req.getParameter("country")
+						),
+				new Address(
+						req.getParameter("addressLine1"),
+						req.getParameter("addressLine2"),
+						req.getParameter("city"),
+						req.getParameter("state"),
+						req.getParameter("zipCode"),
+						req.getParameter("country")
+						)
+				);
+		
+		
+		
+		contacts.add(contact);
+		
+		
+		
+		//req.setAttribute("contacts", contacts);
+		//req.getRequestDispatcher("/jsp/index.jsp").forward(req, resp);
+		doGet(req,resp);
+	}
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Contact contact = new Contact(
-				"Jordan", 
-				"Stong", 
-				new Address("1000", "Main St.", "Town", "State", "5555", "USA"), 
-				"555-123-4567");
-		
-		List<Contact> contacts = new ArrayList<Contact>();
-		contacts.add(contact);
-		
-		contact = new Contact(
-				"Bob", 
-				"Loblaw", 
-				new Address("1000", "Main St.", "Town", "State", "5555", "USA"), 
-				"555-123-4567");
-		contacts.add(contact);
-		
-		
 		req.setAttribute("contacts", contacts);
 		req.getRequestDispatcher("/jsp/index.jsp").forward(req, resp);
 	}
