@@ -2,9 +2,17 @@ package edu.weber;
 
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 import edu.weber.dao.ContactDAO;
@@ -33,6 +41,29 @@ public class AppTest
        
     	assertTrue("Jordan".equalsIgnoreCase(contact.getFirstName()));
     }
+    
+    @Test
+    public void testThatValidationCatchesWhenAFieldIsMission() {
+    	MyFirstServlet servlet = new MyFirstServlet();
+    	HashMap<String, String> missedForms = servlet.validateFormInformation("", "Test", "Test", new Address("","","","","",""), new Address("","","","","",""));
+    	assertTrue(!missedForms.isEmpty());
+    }
+    
+	/*
+	 * @Test public void testThatPostAddsContact() throws ServletException,
+	 * IOException { MyFirstServlet firstServlet = new MyFirstServlet();
+	 * HttpServletRequest mockedRequest = Mockito.mock(HttpServletRequest.class);
+	 * Mockito.when(mockedRequest.getParameter(ArgumentMatchers.anyString())).
+	 * thenReturn("Test");
+	 * 
+	 * HttpServletResponse mockedResponse = Mockito.mock(HttpServletResponse.class);
+	 * 
+	 * firstServlet.doPost(mockedRequest, mockedResponse);
+	 * 
+	 * 
+	 * 
+	 * }
+	 */
     
     private Contact createContact() {
     	return new Contact(
