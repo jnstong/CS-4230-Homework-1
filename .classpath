@@ -6,8 +6,8 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="java/" kind="src" path="src/main"/>
-	<classpathentry kind="src" path="resources"/>
+	<classpathentry kind="src" path="src/main/resources/db/migration"/>
+	<classpathentry excluding="java/|resources/|resources/db/migration/" kind="src" path="src/main"/>
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
 			<attribute name="test" value="true"/>
@@ -17,6 +17,7 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11">
 		<attributes>
+			<attribute name="module" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>

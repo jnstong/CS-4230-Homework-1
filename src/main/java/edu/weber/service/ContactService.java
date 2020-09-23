@@ -1,31 +1,35 @@
 package edu.weber.service;
-
-import java.util.List;
+import java.util.*;
 
 import edu.weber.dao.ContactDAO;
 import edu.weber.model.Contact;
 
+
 public class ContactService {
-	private ContactDAO contactDAO = null;
+
+	private ContactDAO contactDao = null;
 	
 	public ContactService() {
-		this.contactDAO = new ContactDAO();
-	}
-
-	public List<Contact> getContacts(){
-		return null;
+		this.contactDao = new ContactDAO();
 	}
 	
-	public Contact getContactByFirstName(String firstName) {
-		
-		return contactDAO.getContactByFirstName(firstName);
+	public List<Contact> getContacts() {
+		return contactDao.getContacts();
 	}
 	
-	public ContactDAO getContactDAO() {
-		return contactDAO;
+	public Contact recordContact(Contact contact) {
+		return contactDao.recordContact(contact);
+	}
+	
+
+	public ContactDAO getContactDao() {
+		return contactDao;
 	}
 
-	public void setContactDAO(ContactDAO contactDAO) {
-		this.contactDAO = contactDAO;
+	public void setContactDao(ContactDAO contactDao) {
+		this.contactDao = contactDao;
 	}
+	
+	
+	
 }

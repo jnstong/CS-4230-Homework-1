@@ -1,6 +1,9 @@
 package edu.weber.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -9,24 +12,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Contact implements Serializable{
-	//@JsonProperty("fn") //changes what the variable is called 
+	
+	private String id;
 	private String firstName;
 	private String lastName;
-	private Address homeAddress;
-	private Address businessAddress;
 	private String phoneNumber;
+	private List<Address> addresses;
 	
 	public Contact() {
-		this(null, null, null, null, null);
+		this(null, null, null, null);
 	}
 	
-	public Contact(String firstName, String lastName, String phoneNumber, Address homeAddress, Address businessAddress) {
+	public Contact(String firstName, String lastName, String phoneNumber, List<Address> addresses) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.homeAddress = homeAddress;
-		this.businessAddress = businessAddress;
 		this.phoneNumber = phoneNumber;
+		this.addresses = addresses;
 	}
 
 	public String getFirstName() {
@@ -45,13 +47,6 @@ public class Contact implements Serializable{
 		this.lastName = lastName;
 	}
 
-	public Address getHomeAddress() {
-		return homeAddress;
-	}
-
-	public void setHomeAddress(Address homeAddress) {
-		this.homeAddress = homeAddress;
-	}
 
 	public String getPhoneNumber() {
 		return phoneNumber;
@@ -61,14 +56,59 @@ public class Contact implements Serializable{
 		this.phoneNumber = phoneNumber;
 	}
 	
-	public Address getBusinessAddress() {
-		return businessAddress;
+
+	public String getId() {
+		return id;
 	}
 
-	public void setBusinessAddress(Address businessAddress) {
-		this.businessAddress = businessAddress;
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public void addAddress(Address address) {
+        if(addresses == null) {
+            addresses = new ArrayList<>();
+        }
+        addresses.add(address);
+    }
+	
+	public List<Address> getAddresses() {
+		return addresses;
 	}
 
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
+	}
+	
+	public boolean equals(Object o) {
+		 if (o == this) { 
+	            return true; 
+	        } 
+	  
+	        /* Check if o is an instance of Complex or not 
+	          "null instanceof [type]" also returns false */
+	        if (!(o instanceof Contact)) { 
+	            return false; 
+	        } 
+	          
+	        // typecast o to Complex so that we can compare data members  
+	        Contact c = (Contact) o; 
+	          
+	        // Compare the data members and return accordingly  
+	        if(c.firstName.equals(this.firstName) 
+	        		&& c.lastName.equals(this.lastName)
+	        		&& c.phoneNumber.equals(this.phoneNumber)) {
+	        	Iterator<Address> i = this.addresses.iterator();
+	        	for(Address a: c.addresses) {
+	        		if(i.hasNext() && !a.equals(i.next())) {
+	        			return false;
+	        		}
+	        	}
+	        	return true;
+	        } else {
+	        	return false;
+	        }
+	}
 	
 	
 }

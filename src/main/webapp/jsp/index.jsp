@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-<%@ taglib uri = "/WEB-INF/tld/custom.tld" prefix = "w" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -36,7 +36,7 @@
 			<div class="form-group col-md-3">
 				<label for="addressType">Address Type</label> 
 				<select class="form-control" id="addressType" name="addressType" onChange="changeDisplay()">
-					<option disabled selected value style="display:none;"><c:out value="${missedForms['address']}"/></option> 
+					<option disabled selected style="display:none;"><c:out value="${missedForms['address']}"/></option> 
 					<option value="home">Home</option>
 					<option value="business">Business</option>
 				</select> 
@@ -123,16 +123,15 @@
 				<th>First Name</th>
 				<th>Last Name</th>
 				<th>Phone Number</th>
-				<th>Home Address</th>
-				<th>Home City</th>
-				<th>Home State</th>
-				<th>Home Country</th>
-				<th>Home Zip Code</th>
-				<th>Business Address</th>
-				<th>Business City</th>
-				<th>Business State</th>
-				<th>Business Country</th>
-				<th>Business Zip Code</th>
+				<c:forEach begin="0" end="1">
+					<th>Address Type</th>
+					<th>Address Line 1</th>
+					<th>Address Line 2</th>
+					<th>City</th>
+					<th>State</th>
+					<th>Zip Code</th>
+					<th>Country</th>
+				</c:forEach> 
 			</tr>
 		
 		<c:forEach items="${contacts}" var="contact">
@@ -146,36 +145,34 @@
 				<td>
 					<c:out value="${contact.phoneNumber}"/>
 				</td>
-				<td>
-					<c:out value="${contact.getHomeAddress().getAddressLine1()} ${contact.getHomeAddress().getAddressLine2()}"/>
-				</td>
-				<td>
-					<c:out value="${contact.getHomeAddress().getCity()}"/>
-				</td>
-				<td>
-					<c:out value="${contact.getHomeAddress().getState()}"/>
-				</td>
-				<td>
-					<c:out value="${contact.getHomeAddress().getCountry()}"/>
-				</td>
-				<td>
-					<c:out value="${contact.getHomeAddress().getZipCode()}"/>
-				</td>
-				<td>
-					<c:out value="${contact.getBusinessAddress().getAddressLine1()} ${contact.getBusinessAddress().getAddressLine2()}"/>
-				</td>
-				<td>
-					<c:out value="${contact.getBusinessAddress().getCity()}"/>
-				</td>
-				<td>
-					<c:out value="${contact.getBusinessAddress().getState()}"/>
-				</td>
-				<td>
-					<c:out value="${contact.getBusinessAddress().getCountry()}"/>
-				</td>
-				<td>
-					<c:out value="${contact.getBusinessAddress().getZipCode()}"/>
-				</td>
+				<c:forEach items="${contact.addresses}" var="address">
+					<td>
+						<c:out value="${address.type}"/>
+					</td>
+					<td>
+						<c:out value="${address.addressLine1}"/>
+					</td>
+					<td>
+						<c:out value="${address.addressLine2}"/>
+					</td>
+					<td>
+						<c:out value="${address.city}"/>
+					</td>
+					<td>
+						<c:out value="${address.state}"/>
+					</td>
+					<td>
+						<c:out value="${address.zipCode}"/>
+					</td>
+					<td>
+						<c:out value="${address.country}"/>
+					</td>
+				</c:forEach>
+				
+				<c:if test = "${contact.addresses.size() < 2}">
+					<td/> <td/> <td/> <td/> <td/> <td/> <td/>
+				</c:if>
+				
 				
 			</tr>
 		</c:forEach>
